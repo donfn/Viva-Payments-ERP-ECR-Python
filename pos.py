@@ -1,11 +1,12 @@
 import socket
 import os
 import sys
+import random
 os.system('color 09')
 os.system('@echo off')
 os.system('cls')
 
-pos_ip = '192.168.2.6'
+pos_ip = '192.168.2.12'
 pos_port = 8080
 
 pos = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,7 +18,7 @@ pos.setsockopt(socket.SOL_TCP, socket.TCP_KEEPINTVL, 15)
 pos.connect((pos_ip, pos_port))
 amount = str(input('Input the amound (ex. 20.50 for 20,50€): ')).replace(',','.')
 packet = '|'+str(random.randint(1000,9999))+'|200|00|PAYMENT|'+amount+'|0000||||'
-packet = '0'*(4-len(len(packet))) + str(len(packet)) + packet
+packet = '0'*(4-len(str(len(packet)))) + str(len(packet)) + packet
 pos.send(packet.encode())
 
 pos.recv(4096)
